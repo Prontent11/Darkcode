@@ -3,11 +3,26 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const ProblemSet = () => {
+  const [problems, setProblems] = useState([]);
   const router = useRouter();
- 
+  const getAllProblems = async () => {
+    try {
+      const respone = await axios.get("./api/allproblems");
+      console.log(respone.data);
+      setProblems(respone.data.problems);
+    } catch (error: any) {
+      console.log(
+        "something went wrong while fetching problems" + error.message
+      );
+    }
+  };
+  useEffect(() => {
+    getAllProblems();
+  }, []);
+
   const Logout = async () => {
     try {
       await axios.get("./api/logout");
@@ -29,12 +44,18 @@ const ProblemSet = () => {
         </button>
       </div>
       <div className=" border-solid border border-white-500 w-full h-full px-5 py-5 flex flex-col items-center gap-3 ">
-        <Link
-          href={"problems/1"}
-          className="py-2 px-2 border-solid border border-white-500 w-full"
-        >
-          Problem 1
-        </Link>
+        {problems &&
+          problems.map((problem: any) => {
+            return (
+              <Link
+                key={problem._id}
+                href={`problems/${problem._id}`}
+                className="py-2 px-2 border-solid border border-white-500 w-full"
+              >
+                {problem.problem_title}
+              </Link>
+            );
+          })}
       </div>
     </div>
   );
