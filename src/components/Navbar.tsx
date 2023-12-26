@@ -9,6 +9,7 @@ const Navbar = ({
   setUserTheme,
   fontSize,
   setFontSize,
+  Submit,
 }: any) => {
   const languages = [
     { value: "c", label: "C" },
@@ -24,6 +25,7 @@ const Navbar = ({
     <div className="flex py-5 p-2 items-center justify-between gap-3 border-b border-solid border-white">
       <div className="flex items-center gap-4">
         <Select
+          id={Date.now().toString()}
           className="text-black"
           options={languages}
           value={userLang}
@@ -49,7 +51,10 @@ const Navbar = ({
           }}
         />
       </div>
-      <button className="run-btn py-1 px-5 rounded-xl  bg-green-700 w-fit">
+      <button
+        className="run-btn py-1 px-5 rounded-xl  bg-green-700 w-fit"
+        onClick={Submit}
+      >
         Run
       </button>
     </div>

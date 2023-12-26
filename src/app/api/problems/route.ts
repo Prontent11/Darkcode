@@ -1,6 +1,8 @@
 import { connect } from "@/dbconfig/dbCofign";
 import { NextRequest, NextResponse } from "next/server";
 import Problems from "@/models/problemModel";
+import Problem from "@/components/Problem";
+import { NextApiRequest } from "next";
 connect();
 export async function POST(request: NextRequest) {
   try {
@@ -27,7 +29,6 @@ export async function POST(request: NextRequest) {
     console.log(error);
     return NextResponse.json({
       error: "Something went wrong in problem creation",
-      status: "500",
     });
   }
 }
