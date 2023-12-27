@@ -3,6 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const router = useRouter();
@@ -15,6 +16,16 @@ const Signup = () => {
     try {
       const response = await axios.post("./api/signup", user);
       console.log("Signup successfully", response.data);
+      toast.success("SignedUp Successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       router.push("/login");
     } catch (error) {
       console.log("Error signup" + error);
@@ -23,6 +34,7 @@ const Signup = () => {
   return (
     <div className="flex justify-center items-center h-screen border border-solid border-white">
       <div className="flex flex-col h-1/2 items-center gap-2">
+        <h1 className="text-3xl mb-5">Login</h1>
         <label htmlFor="username">Username</label>
         <input
           className=" mx-2 rounded-md text-black px-2 py-1"

@@ -7,9 +7,9 @@ const Problem = ({ problem }: any) => {
     <>
       <div className="p-5">
         <h1 className="text-3xl">{problem && problem.problem_title}</h1>
-        <p className="test-left py-5 overflow-y-auto">
+        <div className="test-left py-5 overflow-y-auto">
           <Markdown>{problem && problem.problem_description}</Markdown>
-        </p>
+        </div>
       </div>
     </>
   );

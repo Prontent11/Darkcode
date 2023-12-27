@@ -26,3 +26,27 @@ export async function GET(request: NextApiRequest, { params }: any) {
     });
   }
 }
+export async function DELETE(request: NextApiRequest, { params }: any) {
+  try {
+    const id = params.id;
+    // const { id } = requestBody;
+    if (!id) {
+      return NextResponse.json({
+        error: "Something went wrong in problem deletion",
+      });
+    }
+    const problemDel = await Problems.deleteOne({ _id: id });
+    const problems = await Problems.find({}, "problem_title");
+    console.log(problemDel);
+    return NextResponse.json({
+      message: "Problem fetched successfully",
+      status: 200,
+      problems,
+    });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({
+      error: "Something went wrong in problem deletion",
+    });
+  }
+}

@@ -40,10 +40,21 @@ export async function POST(request: NextRequest) {
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1d",
     });
+    const userDetails = {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      admin: user.isAdmin,
+    };
     const response = NextResponse.json({
       message: "Logged In successfully",
       success: true,
+      userDetails,
     });
+    if (user.isAdmin == false)
+      response.cookies.set("admin", "", { httpOnly: true });
+    else if (user.isAdmin == true)
+      response.cookies.set("admin", "true", { httpOnly: true });
     response.cookies.set("token", token, {
       httpOnly: true,
     });

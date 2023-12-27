@@ -15,8 +15,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide a password"],
   },
-});
 
+  isAdmin: {
+    type: Boolean,
+    default: false,
+    // Set to true for users with admin privileges
+  },
+});
+// userSchema.pre("save", function (next) {
+//   if (this.isAdmin) {
+//     this.isAdmin = false;
+//   }
+//   next();
+// });
 const User = mongoose.models.users || mongoose.model("users", userSchema);
 
 export default User;
