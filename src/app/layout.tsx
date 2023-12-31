@@ -4,8 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Create next and appwrite app",
-  description: "learning it on youtube",
+  title: "Darkcode",
+  description: "programming questions practicing platform",
 };
 
 export default function RootLayout({
