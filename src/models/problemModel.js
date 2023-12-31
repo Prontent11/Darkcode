@@ -9,6 +9,10 @@ const problemSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide a description"],
   },
+  problem_difficulty: {
+    type: String,
+    required: [true, "Please provide a description"],
+  },
   problem_input: {
     type: String,
     required: [true, "Please provide a input"],

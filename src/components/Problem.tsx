@@ -4,14 +4,18 @@ import Markdown from "react-markdown";
 
 const Problem = ({ problem }: any) => {
   return (
-    <>
-      <div className="p-5">
+    <div className="pl-20 mt-4 h-full">
+      <div className="pt-10">
         <h1 className="text-3xl">{problem && problem.problem_title}</h1>
-        <div className="test-left py-5 overflow-y-auto">
-          <Markdown>{problem && problem.problem_description}</Markdown>
+      </div>
+      <div className=" h-full ">
+        <div className="test-left py-2 overflow-y-auto mt-10 ">
+          <div
+            dangerouslySetInnerHTML={{ __html: problem?.problem_description }}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -7,17 +7,20 @@ connect();
 export async function POST(request: NextRequest) {
   try {
     const requestBody = await request.json();
-    const { title, description, input, output } = requestBody;
+    const { title, description, input, output, difficulty } = requestBody;
     if (!title && !description && !input && !output) {
       return NextResponse.json({
         message: "Please fill all the fields",
       });
     }
+    console.log(difficulty);
+
     const newProblem = new Problems({
       problem_title: title,
       problem_description: description,
       problem_input: input,
       problem_output: output,
+      problem_difficulty: difficulty,
     });
     await newProblem.save();
     return NextResponse.json({

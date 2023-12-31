@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide a password"],
   },
-
+  solvedProblems: [{ type: mongoose.Schema.Types.ObjectId, ref: "Problems" }],
   isAdmin: {
     type: Boolean,
     default: false,

@@ -11,6 +11,7 @@ export const UserContext = createContext<{
 
 export const UserProvider = ({ children }: any) => {
   const [currentUser, setCurrentUser] = useState();
+
   useEffect(() => {
     const data = localStorage.getItem("userDetails");
     const value = JSON.parse(data!);

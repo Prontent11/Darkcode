@@ -1,5 +1,5 @@
 "use server";
-
+// import base64;
 import codeToJson from "@/helper/codeToJson";
 
 const axios = require("axios");
@@ -15,12 +15,13 @@ const options = {
 
 export const submitProblem = async (
   code: any,
-  input: any,
-  output: any,
+  input: String,
+  output: String,
   lang: any
 ) => {
   try {
-    const formattedCode = codeToJson(code);
+    console.log(lang + "lang");
+
     const parameter = {
       method: "POST",
       url: "https://judge0-ce.p.rapidapi.com/submissions",
@@ -44,21 +45,30 @@ export const submitProblem = async (
 
 export const getProblemSubmission = async (token: any) => {
   try {
-    let t = 20;
+    let t = 3;
+    const parameter = {
+      params: {
+        base64_encoded: "true",
+        fields: "*",
+      },
+      method: "GET",
+
+      url: `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
+    };
     while (true) {
-      const parameter = {
-        method: "GET",
-        url: `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
-      };
       const response = await axios.request({
         ...options,
         ...parameter,
       });
       const statusId = response.data.status.id;
-      console.log(statusId);
+      console.log(response.data);
       if (statusId === 3) {
         return response;
       } else if (statusId === 6) {
+        return response;
+      } else if (statusId === 4) {
+        return response;
+      } else if (statusId == 11) {
         return response;
       }
       // return response;

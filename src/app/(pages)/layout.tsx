@@ -1,10 +1,12 @@
 // import { Metadata } from "next";
 "use client";
 import { Inter } from "next/font/google";
-import "../globals.css";
+// import "../globals.css";
 import { UserProvider } from "../context/userContext";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
+import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,8 @@ export default function PageLayout({
 }) {
   return (
     <UserProvider>
-      <>
+      <div className="bg-[#1A1A1A] h-screen">
+        <Navbar />
         <ToastContainer
           position="top-center"
           autoClose={5000}
@@ -34,7 +37,10 @@ export default function PageLayout({
           theme="dark"
         />
         {children}
-      </>
+        {/* <footer className="footer  text-[#ffffff]  bg-blue-400 overflow-hidden border-t text-center py-5 border-white">
+          <p>&copy; 2023 Darkcode. All rights reserved.</p>
+        </footer> */}
+      </div>
     </UserProvider>
   );
 }

@@ -27,14 +27,24 @@ const Signup = () => {
         theme: "dark",
       });
       router.push("/login");
-    } catch (error) {
+    } catch (error: any) {
       console.log("Error signup" + error);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
   return (
-    <div className="flex justify-center items-center h-screen border border-solid border-white">
-      <div className="flex flex-col h-1/2 items-center gap-2">
-        <h1 className="text-3xl mb-5">Login</h1>
+    <div className="flex justify-center items-center mt-20">
+      <div className="flex flex-col h-full items-center gap-2">
+        <h1 className="text-3xl mb-5">Signup</h1>
         <label htmlFor="username">Username</label>
         <input
           className=" mx-2 rounded-md text-black px-2 py-1"
