@@ -1,7 +1,7 @@
 import React from "react";
 import { css, SerializedStyles } from "@emotion/react";
+// import { RingLoader } from "react-spinners";
 import { RingLoader } from "react-spinners";
-
 const override: SerializedStyles = css`
   display: block;
   margin: 0 auto;
