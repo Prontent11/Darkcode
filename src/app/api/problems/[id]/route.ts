@@ -1,8 +1,7 @@
 import Problems from "@/models/problemModel";
-import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextApiRequest, { params }: any) {
+export async function GET(request: NextRequest, { params }: any) {
   try {
     const id = params.id;
     // const { id } = requestBody;
@@ -26,7 +25,7 @@ export async function GET(request: NextApiRequest, { params }: any) {
     });
   }
 }
-export async function DELETE(request: NextApiRequest, { params }: any) {
+export async function DELETE(request: NextRequest, { params }: any) {
   try {
     const id = params.id;
     // const { id } = requestBody;

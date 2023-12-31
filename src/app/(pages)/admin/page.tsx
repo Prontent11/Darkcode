@@ -5,9 +5,14 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import Markdown from "react-markdown";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import Select from "react-select";
 import "react-quill/dist/quill.snow.css";
+
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 const Admin = () => {
   const router = useRouter();
   const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -23,7 +28,7 @@ const Admin = () => {
     if (currentUser?.admin === false) {
       return redirect("/");
     }
-  }, []);
+  }, [currentUser]);
   const difficulties = [
     { value: "Easy", label: "Easy" },
     { value: "Medium", label: "Medium" },

@@ -14,13 +14,11 @@ interface SolveProblems {
 interface ProblemTableProps {
   problems: Problem[];
   solvedProblems?: SolveProblems[];
-  onDelete?: () => void;
 }
 
 const ProblemTable: React.FC<ProblemTableProps> = ({
   problems,
   solvedProblems,
-  onDelete,
 }) => {
   console.error = function () {};
   const router = useRouter();
@@ -30,6 +28,7 @@ const ProblemTable: React.FC<ProblemTableProps> = ({
         Header: "Problem Title",
         accessor: "problem_title" as const,
       },
+
       {
         Header: "Difficulty",
         accessor: "problem_difficulty" as const,
@@ -54,7 +53,7 @@ const ProblemTable: React.FC<ProblemTableProps> = ({
         },
       },
     ],
-    []
+    [solvedProblems]
   );
 
   const {

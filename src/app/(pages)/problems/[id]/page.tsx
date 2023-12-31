@@ -1,6 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { Suspense, useContext, useEffect, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import Editor from "@monaco-editor/react";
 import Problem from "@/components/Problem";
 import Testcases from "@/components/Testcases";
@@ -29,7 +35,7 @@ const Problems = ({ params }: any) => {
   const [problem, setProblem] = useState();
   const [loading, setLoading] = useState(false);
   const { currentUser } = useContext(UserContext);
-  const getProblem = async () => {
+  const getProblem = useCallback(async () => {
     try {
       setLoading(true);
       const search = `../api/problems/${id}`;
@@ -40,10 +46,8 @@ const Problems = ({ params }: any) => {
     } finally {
       setLoading(false);
     }
-  };
-  useEffect(() => {
-    getProblem();
   }, []);
+
   const onSubmit = async () => {
     try {
       setLoading(true);

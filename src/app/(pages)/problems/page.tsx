@@ -59,6 +59,7 @@ const ProblemSet = () => {
     } catch (error: any) {
       console.log(error.message);
     }
+    return;
   };
   return (
     <div className="flex flex-col items-center px-20 pt-10 box-border h-fit ">
@@ -67,11 +68,7 @@ const ProblemSet = () => {
         {loading ? (
           <LoadingComponent />
         ) : (
-          <ProblemTable
-            problems={problems}
-            solvedProblems={solvedProblems}
-            // onDelete={onDelete}
-          />
+          <ProblemTable problems={problems} solvedProblems={solvedProblems} />
         )}
       </div>
     </div>
