@@ -4,7 +4,6 @@ import axios from "axios";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
-import Markdown from "react-markdown";
 // import ReactQuill from "react-quill";
 import Select from "react-select";
 import "react-quill/dist/quill.snow.css";
