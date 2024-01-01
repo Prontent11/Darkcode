@@ -4,7 +4,8 @@ import { ChevronDownIcon } from "@heroicons/react/outline";
 import UserContext from "@/app/context/userContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -13,13 +14,15 @@ const Dropdown: React.FC = () => {
   const [username, setUsername] = useState("");
   const { currentUser, setCurrentUser, logoutUser } = useContext(UserContext);
   const router = useRouter();
+
   useEffect(() => {
     setUsername(currentUser?.username);
   }, [currentUser]);
+
   const Logout = async () => {
     try {
       logoutUser();
-      await axios.get("./api/logout");
+      await axios.get("../api/logout");
       router.push("./login");
       console.log("Logged out successfully");
 
@@ -37,10 +40,11 @@ const Dropdown: React.FC = () => {
       console.log(error.message);
     }
   };
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md  px-3 py-2 text-md font-semibold text-white shadow-sm   hover:bg-gray-50">
+        <Menu.Button className="inline-flex  w-full justify-center gap-x-1.5 hover:text-black rounded-md px-3 py-2 md:text-lg font text-white shadow-sm hover:bg-gray-50 sm:text-sm sm:px-2">
           Profile
           <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"
@@ -58,7 +62,7 @@ const Dropdown: React.FC = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute z-10 mt-2 w-56 md:right-0 right-[-200px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-48">
           <div className="py-1">
             <Menu.Item>
               {({ active }: any) => (

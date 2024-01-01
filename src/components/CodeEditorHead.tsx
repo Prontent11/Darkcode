@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Select from "react-select";
 
@@ -21,13 +20,13 @@ const CodeEditorHead = ({
     { value: "vs-dark", label: "Dark" },
     { value: "light", label: "Light" },
   ];
-  console.log(userLang);
+
   return (
-    <div className="flex pb-3 mt-10 items-center justify-between gap-3">
-      <div className="flex items-center gap-4">
+    <div className="flex flex-col   md:flex-row items-center justify-between gap-3 pb-3 mt-10">
+      <div className="flex flex-col md:flex-row items-center gap-4">
         <Select
           id={Date.now().toString()}
-          className="text-black"
+          className="text-black "
           options={languages}
           value={userLang}
           onChange={(e) => setUserLang(e.value)}
@@ -56,7 +55,7 @@ const CodeEditorHead = ({
         />
       </div>
       <button
-        className="run-btn py-1 px-5 rounded-xl  bg-green-700 w-fit"
+        className="run-btn py-1 px-5 rounded-xl  bg-green-700 w-fit mt-3 md:mt-0"
         onClick={Submit}
       >
         Run

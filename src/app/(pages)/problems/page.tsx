@@ -1,5 +1,5 @@
 "use client";
-
+// Import necessary modules and components
 import UserContext from "@/app/context/userContext";
 import LoadingComponent from "@/components/Loading";
 import ProblemTable from "@/components/Table";
@@ -9,62 +9,73 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-const ProblemSet = () => {
-  const [problems, setProblems] = useState([]);
-  const [solvedProblems, setSolvedProblems] = useState([]);
+// Define the interface for the ProblemSetProps
+interface ProblemSetProps {}
+
+// Define the ProblemSet component
+const ProblemSet: React.FC<ProblemSetProps> = () => {
+  // Define state variables using TypeScript
+  const [problems, setProblems] = useState<any[]>([]);
+  const [solvedProblems, setSolvedProblems] = useState<any[]>([]);
   const router = useRouter();
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const [loading, setLoading] = useState(false);
-  // console.log(currentUser);
+  const [loading, setLoading] = useState<boolean>(false);
 
+  // Define asynchronous function to fetch all problems
   const getAllProblems = async () => {
     try {
       setLoading(true);
-      const respone = await axios.get("./api/allproblems");
-      // console.log(respone.data);
-      setProblems(respone.data.problems);
+      const response = await axios.get("./api/allproblems");
+      setProblems(response.data.problems);
     } catch (error: any) {
       console.log(
-        "something went wrong while fetching problems" + error.message
-      );
-    } finally {
-    }
-  };
-  const getSolvedProblems = async (currentUser: any) => {
-    try {
-      setLoading(true);
-      console.log(currentUser);
-      const response = await axios.get(`./api/allproblems/${currentUser.id}`);
-      console.log(response.data.userSolved.solvedProblems);
-      setSolvedProblems(response.data.userSolved.solvedProblems);
-    } catch (error: any) {
-      console.log(
-        "something went wrong while fetching solved problems" + error.message
+        "Something went wrong while fetching problems" + error.message
       );
     } finally {
       setLoading(false);
     }
   };
+
+  // Define asynchronous function to fetch solved problems for a specific user
+  const getSolvedProblems = async (currentUser: any) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`./api/allproblems/${currentUser.id}`);
+      setSolvedProblems(response.data.userSolved.solvedProblems);
+    } catch (error: any) {
+      console.log(
+        "Something went wrong while fetching solved problems" + error.message
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch all problems on component mount
   useEffect(() => {
     getAllProblems();
   }, []);
+
+  // Fetch solved problems when currentUser changes
   useEffect(() => {
     if (currentUser) getSolvedProblems(currentUser);
   }, [currentUser]);
+
+  // Define function to handle problem deletion
   const onDelete = async (id: any) => {
     try {
       const response = await axios.delete(`./api/problems/${id}`);
-      console.log("Problem deleted");
       setProblems(response.data.problems);
+      console.log("Problem deleted");
     } catch (error: any) {
       console.log(error.message);
     }
-    return;
   };
+
+  // Return the JSX for the component with Tailwind CSS classes
   return (
-    <div className="flex flex-col items-center px-20 pt-10 box-border h-fit ">
-      <div className="  w-full px-5 py-5 flex flex-col items-center gap-3 ">
-        {}
+    <div className="flex flex-col items-center px-4 pt-8 md:px-8 lg:px-16 box-border">
+      <div className="w-full px-4 py-4 md:px-8 md:py-8 lg:px-16 lg:py-16 flex flex-col items-center gap-3">
         {loading ? (
           <LoadingComponent />
         ) : (

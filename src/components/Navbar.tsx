@@ -1,40 +1,85 @@
+import { useContext, useState } from "react";
 import Link from "next/link";
-import React, { useContext, useState } from "react";
 import Dropdown from "./Dropdown";
 import UserContext from "@/app/context/userContext";
 
 const Navbar = () => {
   const { currentUser } = useContext(UserContext);
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div>
-      {" "}
-      <div className=" p pt-10">
-        <div className="container mx-auto flex justify-between items-center">
+    <div className="bg-black">
+      <div className="container mx-auto p-4">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
           <div className="text-white font-bold text-xl">
-            <Link href="/" className="text-4xl ml-10 mt-10">
+            <Link href="/" className="text-4xl">
               <span className="text-blue-300">Dark</span>Code
             </Link>
           </div>
 
-          {/* Navigation links on the right */}
-          <div className="flex flex-wrap items-center gap-5 text-xl">
+          {/* Hamburger icon for mobile */}
+          <div className="lg:hidden cursor-pointer" onClick={toggleMenu}>
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </div>
+
+          {/* Navigation links on the right (hidden on mobile) */}
+          <div className="hidden lg:flex items-center space-x-4 text-white text-lg">
             <Link
               href="/problems"
-              className="text-white hover:bg-blue-300 px-5 py-2 rounded-xl hover:text-white"
+              className="hover:bg-blue-300 px-3 py-2 rounded-md hover:text-white"
             >
               Problems
             </Link>
             {currentUser?.admin && (
               <Link
                 href="/admin"
-                className="text-white hover:bg-blue-300 px-5 py-2 rounded-xl hover:text-white"
+                className="hover:bg-blue-300 px-3 py-2 rounded-md hover:text-white"
               >
                 Admin
               </Link>
             )}
-            <div className="rounded-xl">{currentUser && <Dropdown />}</div>
+            <div className="rounded-md">{currentUser && <Dropdown />}</div>
           </div>
         </div>
+
+        {/* Mobile menu (visible when toggled) */}
+        {isMenuOpen && (
+          <div className="lg:hidden mt-2">
+            <Link
+              href="/problems"
+              className="block py-2 px-4 text-white hover:bg-blue-300 rounded-md"
+            >
+              Problems
+            </Link>
+            {currentUser?.admin && (
+              <Link
+                href="/admin"
+                className="block py-2 px-4 text-white hover:bg-blue-300 rounded-md"
+              >
+                Admin
+              </Link>
+            )}
+            {currentUser && <Dropdown />}
+          </div>
+        )}
       </div>
     </div>
   );
