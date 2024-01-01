@@ -1,6 +1,5 @@
 "use client";
-import React, { Suspense } from "react";
-import Markdown from "react-markdown";
+import React from "react";
 
 const Problem = ({ problem }: any) => {
   return (
