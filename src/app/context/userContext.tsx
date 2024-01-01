@@ -4,26 +4,38 @@ import { createContext, useEffect, useState } from "react";
 export const UserContext = createContext<{
   currentUser: any;
   setCurrentUser: (status: any) => void;
+  logoutUser: () => void;
+  loginUser: (userData: User) => void;
 }>({
   currentUser: {},
   setCurrentUser: () => {},
+  logoutUser: () => {},
+  loginUser: () => {},
 });
-
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  admin: Boolean;
+}
 export const UserProvider = ({ children }: any) => {
-  const [currentUser, setCurrentUser] = useState();
-
+  const [currentUser, setCurrentUser] = useState<User | null>();
+  const logoutUser = () => {
+    setCurrentUser(null);
+  };
+  const loginUser = (userDetails: User) => {
+    setCurrentUser(userDetails);
+  };
   useEffect(() => {
     const data = localStorage.getItem("userDetails");
-    const value = JSON.parse(data!);
+    let value = JSON.parse(data!);
     setCurrentUser(value);
   }, []);
-  useEffect(() => {
-    if (currentUser)
-      localStorage.setItem("userDetails", JSON.stringify(currentUser));
-  }, [currentUser]);
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+    <UserContext.Provider
+      value={{ currentUser, setCurrentUser, logoutUser, loginUser }}
+    >
       {children}
     </UserContext.Provider>
   );

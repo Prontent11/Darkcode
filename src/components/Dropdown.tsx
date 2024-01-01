@@ -11,14 +11,14 @@ function classNames(...classes: string[]) {
 
 const Dropdown: React.FC = () => {
   const [username, setUsername] = useState("");
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser, logoutUser } = useContext(UserContext);
   const router = useRouter();
   useEffect(() => {
     setUsername(currentUser?.username);
   }, [currentUser]);
   const Logout = async () => {
     try {
-      setCurrentUser(null);
+      logoutUser();
       await axios.get("./api/logout");
       router.push("./login");
       console.log("Logged out successfully");

@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, loginUser } = useContext(UserContext);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
@@ -34,7 +34,7 @@ const Login = () => {
         theme: "dark",
       });
 
-      setCurrentUser(response.data.userDetails);
+      loginUser(response.data.userDetails);
     } catch (error: any) {
       console.log(error.response.data);
       toast.success(error.error, {
