@@ -10,7 +10,7 @@ export const UserContext = createContext<{
   currentUser: {},
   setCurrentUser: () => {},
   logoutUser: () => {},
-  loginUser: () => {},
+  loginUser: (userData: User) => {},
 });
 interface User {
   id: string;
@@ -22,9 +22,11 @@ export const UserProvider = ({ children }: any) => {
   const [currentUser, setCurrentUser] = useState<User | null>();
   const logoutUser = () => {
     setCurrentUser(null);
+    localStorage.removeItem("userDetails");
   };
   const loginUser = (userDetails: User) => {
     setCurrentUser(userDetails);
+    localStorage.setItem("userDetails", JSON.stringify(userDetails));
   };
   useEffect(() => {
     const data = localStorage.getItem("userDetails");
