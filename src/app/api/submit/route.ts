@@ -34,11 +34,14 @@ export async function POST(request: NextRequest) {
     const response = await getProblemSubmission(token.token);
     // console.log(response);
     const data = await response.data;
-    // const outputn = Buffer.from(data?.expected_output, "base64").toString(
-    //   "utf-8"
-    // );
+    const outputn = Buffer.from(data?.expected_output, "base64").toString(
+      "utf-8"
+    );
     // const stdout = Buffer.from(data?.stdout, "base64").toString("utf-8");
+    // const stdin = Buffer.from(data?.stdin, "base64").toString("utf-8");
     // console.log(outputn);
+    // console.log(stdout);
+    // console.log(stdin);
     // console.log("stdout");
 
     console.log(data);

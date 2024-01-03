@@ -22,9 +22,10 @@ const Problems: React.FC<ProblemsProps> = ({ params }) => {
   const [fontSize, setFontSize] = useState<number>(20);
   const [problem, setProblem] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [problemLoading, setProblemLoading] = useState<boolean>(false);
   const { currentUser } = useContext(UserContext);
 
-  const getProblem = useCallback(async () => {
+  const getProblem = async () => {
     try {
       setLoading(true);
       const search = `../api/problems/${id}`;
@@ -35,13 +36,13 @@ const Problems: React.FC<ProblemsProps> = ({ params }) => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
   useEffect(() => {
     getProblem();
   }, []);
   const onSubmit = async () => {
     try {
-      setLoading(true);
+      setProblemLoading(true);
       const userEmail = currentUser?.email;
       const data = {
         problem,
@@ -53,19 +54,13 @@ const Problems: React.FC<ProblemsProps> = ({ params }) => {
       let message = "";
       if (response.data.data.status.id === 3) {
         message = " ✅ Problem accepted";
-        toast.success(message, {
-          /* ...toast options */
-        });
+        toast.success(message, {});
       } else if (response.data.data.status.id === 4) {
         message = " ❌ Wrong Answer";
-        toast.error(message, {
-          /* ...toast options */
-        });
+        toast.error(message, {});
       } else {
         message = " 🚫 Compilation Error";
-        toast.error(message, {
-          /* ...toast options */
-        });
+        toast.error(message, {});
       }
 
       console.log("working.....");
@@ -73,7 +68,7 @@ const Problems: React.FC<ProblemsProps> = ({ params }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      setProblemLoading(false);
     }
   };
 
@@ -101,17 +96,21 @@ const Problems: React.FC<ProblemsProps> = ({ params }) => {
           Submit={onSubmit}
         />
 
-        <Editor
-          className="h-96 md:h-[615px]"
-          options={options}
-          theme={userTheme}
-          language={userLang}
-          defaultLanguage="python"
-          defaultValue="Enter your code here"
-          onChange={(value: string | undefined) => {
-            setUserCode(value || " ");
-          }}
-        />
+        {problemLoading ? (
+          <LoadingComponent />
+        ) : (
+          <Editor
+            className="h-96 md:h-[615px]"
+            options={options}
+            theme={userTheme}
+            language={userLang}
+            defaultLanguage={userLang}
+            defaultValue={userCode}
+            onChange={(value: string | undefined) => {
+              setUserCode(value || " ");
+            }}
+          />
+        )}
       </div>
     </div>
   );

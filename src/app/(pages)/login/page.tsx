@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const { currentUser, loginUser } = useContext(UserContext);
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<Boolean>(false);
   const [user, setUser] = useState({
     email: "",
     password: "",

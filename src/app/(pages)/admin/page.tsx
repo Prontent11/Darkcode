@@ -40,14 +40,15 @@ const Admin = () => {
       console.log(response.data);
     } catch (error) {
       console.log("Something went wrong in problem creation", error);
+    } finally {
+      setProblem({
+        title: "",
+        description: "",
+        input: "",
+        output: "",
+        difficulty: "Easy",
+      });
     }
-    setProblem({
-      title: "",
-      description: "",
-      input: "",
-      output: "",
-      difficulty: "Easy",
-    });
   };
 
   return (
